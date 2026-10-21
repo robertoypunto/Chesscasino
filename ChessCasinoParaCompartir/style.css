@@ -1,0 +1,512 @@
+body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:40px 0;
+    background:#070009;
+    background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.08), transparent 14%),
+        radial-gradient(circle at 90% 15%, rgba(0,255,255,0.06), transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), transparent 25%, rgba(0,0,0,0.8) 100%),
+        radial-gradient(circle at 50% 50%, rgba(255,215,0,0.04), transparent 30%);
+    color:#f9f1c1;
+    font-family:Arial,Helvetica,sans-serif;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 40% 15%, rgba(255,0,150,0.08), transparent 16%),
+        radial-gradient(circle at 70% 20%, rgba(0,255,255,0.08), transparent 18%);
+    pointer-events:none;
+}
+
+
+#menu{
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background: rgba(4, 2, 16, 0.84);
+    backdrop-filter: blur(14px);
+    z-index:5;
+}
+
+#menu::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,0.14), transparent 18%),
+        radial-gradient(circle at 80% 30%, rgba(0,255,255,0.08), transparent 16%),
+        radial-gradient(circle at 50% 70%, rgba(255,215,0,0.08), transparent 24%);
+    pointer-events:none;
+    filter:blur(10px);
+}
+
+.menu-card{
+    width:min(420px,100%);
+    padding:34px 28px;
+    border-radius:30px;
+    background: linear-gradient(180deg, rgba(8, 6, 28, 0.94), rgba(18, 8, 50, 0.92));
+    border:1px solid rgba(255,215,0,0.26);
+    box-shadow:0 0 42px rgba(255,215,0,0.22), inset 0 0 24px rgba(255,255,255,0.05);
+    backdrop-filter: blur(18px);
+    position:relative;
+    animation: menuEntrance 0.85s ease-out both;
+}
+
+.menu-card h1{
+    margin-bottom:14px;
+    font-size:28px;
+}
+
+.menu-card p{
+    color:#e2d9b6;
+    line-height:1.5;
+}
+
+.menu-card button{
+    margin:20px 0 0;
+    padding:14px 24px;
+    border:2px solid rgba(255,215,0,0.85);
+    border-radius:14px;
+    background:linear-gradient(180deg, #ffd700, #ff8c00);
+    color:#100b06;
+    font-weight:700;
+    cursor:pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.menu-card button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(255,215,0,0.35);
+}
+
+/* Multiplayer friend panel and items removed */
+
+#playerPanel{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    margin-bottom:18px;
+}
+
+.player-card{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:18px 20px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.05);
+    border:2px solid rgba(255,255,255,0.08);
+    min-width:180px;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.player-card.activo{
+    border-color:#00e3ff;
+    box-shadow:0 0 30px rgba(0,227,255,0.25);
+    transform: translateY(-3px);
+}
+
+.player-sigil{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:#ffd700;
+    border:2px solid rgba(255,215,0,0.4);
+}
+
+.player-name{
+    font-size:16px;
+    font-weight:700;
+}
+
+.player-color{
+    font-size:13px;
+    color:#cdd8ff;
+}
+
+h1{
+    margin-top:0;
+    color:#ffd700;
+    text-shadow: 0 0 18px rgba(255,215,0,0.85), 0 0 28px rgba(255,255,255,0.18);
+}
+
+#menu button{
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#menu button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(255,215,0,0.35);
+}
+
+#game.game-showing{
+    animation: gameFadeIn 0.9s ease forwards;
+}
+
+@keyframes menuFlyAway{
+    0% { opacity:1; transform: scale(1) translateY(0) rotate(0deg); }
+    40% { opacity:1; transform: scale(1.05) translateY(-12px) rotate(-1deg); }
+    70% { opacity:0.8; transform: scale(0.9) translateY(-80px) rotate(-3deg); }
+    100% { opacity:0; transform: scale(0.6) translateY(-180px) rotate(-6deg); }
+}
+
+@keyframes menuFadeBackdrop{
+    0% { background: rgba(0,0,0,0.78); }
+    100% { background: rgba(0,0,0,0); }
+}
+
+@keyframes gameFadeIn{
+    0% { opacity:0; transform: translateY(20px); }
+    100% { opacity:1; transform: translateY(0); }
+}
+
+/* panel intro and end animations */
+#panel.game-start{
+    animation: panelStart 0.7s ease forwards;
+}
+
+@keyframes panelStart{
+    0%{ transform: scale(0.94) translateY(12px); opacity:0; box-shadow:0 0 6px rgba(255,215,0,0.06);}    
+    60%{ transform: scale(1.02) translateY(-6px); opacity:1; }
+    100%{ transform: scale(1) translateY(0); opacity:1; }
+}
+
+#panel.game-end{
+    animation: panelEnd 1.2s ease forwards;
+}
+
+@keyframes panelEnd{
+    0%{ transform: scale(1) translateY(0); opacity:1; }
+    40%{ transform: scale(1.03) translateY(-6px); }
+    100%{ transform: scale(0.9) translateY(40px); opacity:0; }
+}
+
+#gameContent{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:18px;
+    width:100%;
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 12px 18px;
+}
+
+#panel{
+    flex:0 0 360px;
+    background: linear-gradient(180deg, rgba(18,6,40,0.98) 0%, rgba(8,2,18,0.95) 100%);
+    padding:16px;
+    border-radius:22px;
+    border:2px solid rgba(255,215,0,0.85);
+    box-shadow: 0 0 48px rgba(255,215,0,0.18), inset 0 0 18px rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px);
+    position:relative;
+}
+
+#panel::before{
+    content:"CASINO SLOT MACHINE";
+    position:absolute;
+    top:-18px;
+    left:50%;
+    transform:translateX(-50%);
+    color:rgba(255,255,255,0.75);
+    font-size:13px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    text-shadow:0 0 10px rgba(255,255,255,0.18);
+}
+
+#gameContent.showing #panel{
+    animation: panelStart 0.8s ease-out forwards;
+}
+
+#menu.menu-starting .menu-card{
+    animation: menuFlyAway 0.9s ease forwards;
+}
+
+#menu.menu-starting-overlay{
+    animation: menuBackdrop 0.9s ease forwards;
+}
+
+#selectedCard{
+    white-space: pre-wrap;
+}
+
+@keyframes menuBackdrop{
+    0% { background: rgba(0,0,0,0.78); }
+    100% { background: rgba(0,0,0,0); }
+}
+
+@keyframes menuFlyAway{
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    40% { opacity: 1; transform: translateY(-12px) scale(1.03); }
+    100% { opacity: 0; transform: translateY(-140px) scale(0.85); }
+}
+
+#girar{
+    padding:12px 25px;
+    font-size:20px;
+    cursor:pointer;
+    border:none;
+    border-radius:10px;
+    background:gold;
+}
+
+#girar:hover{
+    background:orange;
+}
+
+#ruleta{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:16px auto;
+    padding:14px 16px;
+    min-width:320px;
+    max-width:420px;
+    width:auto;
+    background:radial-gradient(circle at top, #ffeb99, #a66000 80%);
+    border:3px solid gold;
+    border-radius:18px;
+    box-shadow:0 0 16px rgba(255,215,0,0.28);
+}
+
+.button-row{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:0 auto 14px;
+    width:min(100%,420px);
+}
+
+#toggleMusic{
+    background:#181818;
+    color:#fff;
+    border:2px solid #ffd700;
+    border-radius:14px;
+    padding:10px 16px;
+    font-size:16px;
+    cursor:pointer;
+    box-shadow:0 0 12px rgba(255,215,0,0.18);
+}
+
+#toggleMusic:hover{
+    background:#292929;
+}
+
+#ruleta.animando .slot{
+    animation:slotSpin 0.8s ease-in-out infinite;
+}
+
+.slot{
+    width:56px;
+    height:56px;
+    background:#222;
+    color:#fff;
+    border:3px solid #ffd700;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:32px;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.08), 0 0 10px rgba(255,215,0,0.22);
+}
+
+.slot-no-move{
+    animation: slotWarn 0.8s ease infinite alternate;
+    border-color: rgba(255,80,80,0.9);
+    box-shadow: inset 0 0 16px rgba(255,80,80,0.55), 0 0 18px rgba(255,80,80,0.22);
+}
+
+.slot-unique{
+    animation: slotUnique 0.8s ease infinite alternate;
+    border-color: rgba(80,255,80,0.9);
+    box-shadow: inset 0 0 16px rgba(80,255,80,0.55), 0 0 18px rgba(80,255,80,0.22);
+}
+
+@keyframes slotUnique{
+    from { transform: scale(1) translateY(0); }
+    to { transform: scale(1.08) translateY(-3px); }
+}
+
+@keyframes slotWarn{
+    from { transform: scale(1) translateY(0); }
+    to { transform: scale(1.06) translateY(-2px); }
+}
+
+@keyframes slotSpin{
+    0%{ transform: translateY(0) rotate(0deg); }
+    25%{ transform: translateY(-8px) rotate(-3deg); }
+    50%{ transform: translateY(8px) rotate(3deg); }
+    75%{ transform: translateY(-6px) rotate(-2deg); }
+    100%{ transform: translateY(0) rotate(0deg); }
+}
+
+#resultado{
+    font-size:22px;
+    margin-top:15px;
+}
+
+#tablero{
+    flex:0 0 480px;
+    width:480px;
+    height:480px;
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    border:4px solid rgba(255,215,0,0.9);
+    box-shadow: 0 0 35px rgba(255,215,0,0.18);
+    background: rgba(0,0,0,0.18);
+    border-radius:18px;
+}
+
+.casilla{
+    width:48px;
+    height:48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:26px;
+    cursor:pointer;
+    border-radius:12px;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.35);
+    transition: transform 0.16s ease, background-color 0.2s ease;
+}
+
+.casilla:hover{
+    transform: translateY(-2px);
+    box-shadow: inset 0 0 14px rgba(255,255,255,0.08), 0 5px 12px rgba(0,0,0,0.25);
+}
+
+.posible-movimiento{
+    box-shadow: inset 0 0 0 3px rgba(0, 255, 255, 0.75);
+}
+
+.blanca{
+    background:#3f1f4f;
+}
+
+.negra{
+    background:#1a091f;
+}
+
+.magenta-piece{
+    color:#ff6bff;
+    text-shadow: 0 0 10px rgba(255,107,255,0.75);
+}
+
+.negro-piece{
+    color:#70f7ff;
+    text-shadow: 0 0 10px rgba(112,247,255,0.65);
+}
+
+.oculto{
+    display:none;
+}
+
+@media (max-width:600px){
+    #panel{ width:95%; padding:14px; }
+    #tablero{ width:92vw; height:92vw; }
+    .casilla{ width:auto; height:auto; font-size:calc(6vw); }
+    .menu-card{ width:90vw; }
+    #ruleta{ width:90%; }
+}
+
+#cartas{
+    margin:14px auto 6px;
+    padding:10px;
+    width:100%;
+    background:rgba(0,0,0,0.18);
+    border:1px solid rgba(255,215,0,0.18);
+    border-radius:16px;
+}
+
+#selectedCard{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    width:220px;
+    min-height:120px;
+    padding:16px;
+    border-radius:18px;
+    background:rgba(10,4,32,0.96);
+    border:1px solid rgba(255,215,0,0.25);
+    box-shadow:0 0 28px rgba(255,215,0,0.25);
+    color:#fff;
+    font-size:14px;
+    opacity:0;
+    transform: translateY(18px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display:block;
+    pointer-events:none;
+    z-index:20;
+}
+
+#selectedCard.visible{
+    opacity:1;
+    transform: translateY(0);
+}
+
+#selectedCard.pinned{
+    border-color: rgba(255,255,255,0.4);
+}
+
+@keyframes menuEntrance{
+    0%{ opacity:0; transform: translateY(-40px) scale(0.92); filter: blur(12px); }
+    60%{ opacity:1; transform: translateY(6px) scale(1.02); filter: blur(0); }
+    100%{ opacity:1; transform: translateY(0) scale(1); }
+}
+
+.carta{
+    margin:8px 6px;
+    padding:10px 12px;
+    font-size:13px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    background:linear-gradient(180deg,#2b0b3a,#3c0f53);
+    color:#ffdfe6;
+    border:2px solid rgba(255,215,0,0.12);
+    min-width:120px;
+    flex:1 1 120px;
+    transition: transform 0.24s ease, box-shadow 0.24s ease, opacity 0.24s ease;
+    text-align:left;
+}
+
+.carta.selected{
+    animation: cartaSelect 0.4s ease forwards;
+    opacity:1;
+}
+
+@keyframes cartaSelect{
+    0%{ transform: scale(1); }
+    50%{ transform: scale(1.15) translateY(-8px); }
+    100%{ transform: scale(1.04) translateY(0); }
+}
+
+.carta.faded{
+    opacity:0.18;
+    transform: scale(0.92);
+}
+
+#cartasList{ display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; }
+#cartasTitulo{ margin:6px 0 8px; font-size:16px; }

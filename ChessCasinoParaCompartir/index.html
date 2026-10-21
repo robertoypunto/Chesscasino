@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Chess Casino</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="menu">
+    <div class="menu-card">
+        <h1>♟️ CHESS CASINO 🎰</h1>
+        <p>Juega localmente con las reglas del casino de ajedrez y disfruta de la ruleta.</p>
+        <button id="startButton">Iniciar partida</button>
+        
+    </div>
+</div>
+
+<div id="game" class="oculto">
+
+<h1>♟️ CHESS CASINO MULTIJUGADOR 🎰</h1>
+
+<div id="gameContent">
+<div id="panel">
+
+    <div id="playerPanel">
+        <div class="player-card" id="player1Card">
+            <div class="player-sigil">1</div>
+            <div>
+                <div class="player-name">Jugador 1</div>
+                <div class="player-color">Negro</div>
+                <div class="player-score">Puntos: <span id="player1Score">0</span></div>
+            </div>
+        </div>
+        <div class="player-card" id="player2Card">
+            <div class="player-sigil">2</div>
+            <div>
+                <div class="player-name">Jugador 2</div>
+                <div class="player-color">Magenta</div>
+                <div class="player-score">Puntos: <span id="player2Score">0</span></div>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="turno">Turno: Jugador 1 (Negro)</h2>
+
+    <div class="button-row">
+        <button id="girar">🎰 Girar Ruleta</button>
+        <button id="toggleMusic">🎵 Música ON</button>
+    </div>
+
+    <div id="ruleta">
+        <div class="slot" id="slot1">♙</div>
+        <div class="slot" id="slot2">♘</div>
+        <div class="slot" id="slot3">♗</div>
+    </div>
+
+    <div id="resultado">Pulsa la ruleta para empezar.</div>
+
+    <div id="cartas" class="oculto">
+        <h3 id="cartasTitulo">🃏 Elige una carta</h3>
+        <div id="cartasList"></div>
+    </div>
+
+</div>
+
+    <div id="tablero"></div>
+</div>
+
+<div id="selectedCard" data-desc=""></div>
+<audio id="backgroundMusic" src="music.mp3" loop preload="auto"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
